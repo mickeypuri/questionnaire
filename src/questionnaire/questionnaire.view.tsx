@@ -15,7 +15,7 @@ const QuestionnaireView = ({
         <div>
 
            {questions.map(question => (
-               <Question {...question} updateQuestionnaire={updateQuestionnaire} />
+               <Question key={question.questionId} {...question} updateQuestionnaire={updateQuestionnaire} />
            ))}
 
            <div className={styles.buttons}>
