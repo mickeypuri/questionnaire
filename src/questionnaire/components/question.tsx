@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { iFormQuestion } from "../interfaces/iFormQuestion";
+import { iQuestion } from "../interfaces/iQuestion";
 import { iValidate } from "../interfaces/iValidate";
 import { getAnswerComponent } from "../utils/getAnswerComponent";
 import { getValidator } from "../utils/getValidator";
@@ -11,8 +11,9 @@ export const Question = ({
     question,
     responseType,
     validate: validateConfig,
-    updateQuestionnaire
-}: iFormQuestion) => {
+    answerOptions,
+    updateQuestionnaire,
+}: iQuestion) => {
     const [answerValue, setAnswerValue] = useState(null);
     const AnswerComponent = getAnswerComponent(responseType);
     const validator = getValidator(responseType);
@@ -29,7 +30,7 @@ export const Question = ({
                 <div>Question {questionNumber}</div>
                 <div>{question}</div>
             </div>
-            <AnswerComponent value={answerValue} onChange={updateAnswerValue}/>
+            <AnswerComponent value={answerValue} onChange={updateAnswerValue} answerOptions={answerOptions}/>
         </>
     );
 };

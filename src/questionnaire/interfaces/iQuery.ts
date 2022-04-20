@@ -1,10 +1,6 @@
 import { iValidate } from './iValidate';
 import { Response } from '../enums/Response';
-
-export interface iMultipleChoice {
-    description: string,
-    optionId?: number;
-}
+import { iMultipleChoice } from './iMultipleChoice';
 
 export interface iQuery {
     questionId: number;
