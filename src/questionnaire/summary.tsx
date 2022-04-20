@@ -1,5 +1,6 @@
 import { iAnswer } from "./interfaces/iAnswer";
 import { iSummary } from "./interfaces/iSummary";
+import styles from './summary.module.css';
 
 const Summary = ({
     questions,
@@ -15,8 +16,8 @@ const Summary = ({
     });
 
     return (
-        <div>
-            <div>Review and Submit</div>
+        <div className={styles.container}>
+            <div className={styles.title}>Review and Submit</div>
             <table>
                 <thead>
                     <th>Number</th>
@@ -38,7 +39,7 @@ const Summary = ({
                     })}
             </table>
 
-            <button onClick={ handleSubmit }>Submit Results</button>
+            <button className={styles.buttons} onClick={ handleSubmit }>Submit Results</button>
 
        </div>
     )

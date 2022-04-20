@@ -26,8 +26,10 @@ export const Question = ({
     };
 
     useEffect(() => {
-        setAnswerValue('');
-    },[questionId]);
+        if (!currentAnswer) {
+            setAnswerValue('');
+        }
+    },[questionId, currentAnswer]);
 
     return (
         <>

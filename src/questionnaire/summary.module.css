@@ -1,0 +1,18 @@
+.container {
+    margin-left: 5em;
+}
+
+.buttons {
+    margin-top: 1em;
+}
+
+.title {
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    margin-left:20px;
+    font-weight: bold;
+}
+
+table { border-spacing: 15px;}
+
+th, td { padding: 5px; }
