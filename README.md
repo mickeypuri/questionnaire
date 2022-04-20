@@ -29,7 +29,9 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ## Functionality
 
 You can configure how many questions are to appear on each page of the wizard by sending a questionsPerPage prop
+
 Answers can be edited from the Summary page
+
 On Submit the answers are shown in an alert for the demo, but would normally be posted to some API
 
 
