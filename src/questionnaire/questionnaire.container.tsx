@@ -5,6 +5,7 @@ import { iFormQuestion } from './interfaces/iFormQuestion';
 import { iQuestionnaire } from "./interfaces/iQuestionnaire";
 import QuestionnaireView from "./questionnaire.view";
 import Summary from "./summary";
+import Edit from "./edit";
 
 const Questionnaire = ({
     questions,
@@ -22,6 +23,8 @@ const Questionnaire = ({
     const [questionIndex, setQuestionIndex] = useState(0);
     const [pageQuestions, setPageQuestions] = useState<iFormQuestion[] | []>([]);
     const [errorMsg, setErrorMsg] = useState('');
+    const [editQuestion, setEditQuestion] = useState<iFormQuestion | null>(null);
+    const [editAnswer, setEditAnswer] = useState<iAnswer | null>(null);
 
     useEffect(() => {
         setStage(Stage.Entry);
@@ -55,6 +58,20 @@ const Questionnaire = ({
         }
     };
 
+    const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const dataQuestionId = (e.target as HTMLButtonElement).getAttribute('data-questionId') as string;
+        const questionId = parseInt(dataQuestionId);
+        const _editQuestion = questions.find(question => question.questionId === questionId) as iFormQuestion;
+        const _editAnswer = topicAnswers.find(topicAnswer => topicAnswer.questionId === questionId) as iAnswer;
+        setEditQuestion(_editQuestion);
+        setEditAnswer(_editAnswer);
+    }
+
+    const handleEditUpdate = (answerValue: iAnswer) => {
+        updateQuestionnaire(answerValue);
+        setStage(Stage.Summary);
+    };
+
     const handleSubmit = () => {
         submit(topicAnswers);
     };
@@ -73,18 +90,25 @@ const Questionnaire = ({
     const summaryProps = {
         questions,
         topicAnswers,
-        handleSubmit
+        handleSubmit,
+        handleEdit
     }
+
+    const editProps = {
+        answer: editAnswer as iAnswer,
+        question: editQuestion as iFormQuestion,
+        handleEditUpdate
+    };
 
     const isEntry = stage === Stage.Entry;
     const isSummary = stage === Stage.Summary;
-
+    const isEdit = stage === Stage.Edit;
 
     return (
         <>
             {isEntry && <QuestionnaireView {...entryViewProps} />}
             {isSummary && <Summary {...summaryProps} />}
-        
+            {isEdit && <Edit {...editProps} />}
         </>
     )
 

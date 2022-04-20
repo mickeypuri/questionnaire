@@ -3,7 +3,6 @@ import { iQuestionnaireView } from "./interfaces/iQuestionnaire";
 
 const QuestionnaireView = ({
     questions,
-    questionsPerPage,
     allowBack,
     showSummary,
     editFromSummary,
