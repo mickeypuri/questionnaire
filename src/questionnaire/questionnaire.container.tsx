@@ -30,8 +30,10 @@ const Questionnaire = ({
     }, [topicId]);
 
     useEffect(() => {
-        const lastQuestionIndex = questionIndex + questionsPerPage;
-        setPageQuestions(questions.slice(questionIndex, lastQuestionIndex));
+        if (questions) {
+            const lastQuestionIndex = questionIndex + questionsPerPage;
+            setPageQuestions(questions.slice(questionIndex, lastQuestionIndex));
+        }
     }, [questionIndex, questions, questionsPerPage]);
 
     const updateQuestionnaire = (answerValue: iAnswer) => {
@@ -46,10 +48,12 @@ const Questionnaire = ({
     }
 
     const handleNext = () => {
-        if (pageAnswers.some(answer => !answer.isValid)) {
+        if (pageAnswers.some(answer => !answer.isValid) || pageAnswers.length !== pageQuestions.length) {
             setErrorMsg('Some responses are not valid, please fix before proceeding');
         } else {
+            setErrorMsg('');
             setTopicAnswers([...topicAnswers, ...pageAnswers]);
+            setPageAnswers([]);
             const nextIndex = questionIndex + questionsPerPage;
             if (nextIndex > questions.length - 1) {
                 setStage(Stage.Summary);
@@ -67,15 +71,25 @@ const Questionnaire = ({
         const _editAnswer = topicAnswers.find(topicAnswer => topicAnswer.questionId === questionId) as iAnswer;
         setEditQuestion(_editQuestion);
         setEditAnswer(_editAnswer);
+        setStage(Stage.Edit);
     }
 
     const handleEditUpdate = (answerValue: iAnswer) => {
-        updateQuestionnaire(answerValue);
-        setStage(Stage.Summary);
+        if (answerValue.isValid) {
+            setErrorMsg('');
+            const editedAnswers = topicAnswers.map(answer => answer.questionId === answerValue.questionId ? answerValue : answer);
+            setTopicAnswers(editedAnswers);
+        } else {
+            setErrorMsg('Please enter a valid response');
+        }
     };
 
     const handleSubmit = () => {
         submit(topicAnswers);
+    };
+
+    const handleEditEnd = () => {
+        setStage(Stage.Summary);
     };
 
     const entryViewProps = {
@@ -95,9 +109,11 @@ const Questionnaire = ({
     }
 
     const editProps = {
-        answer: editAnswer as iAnswer,
+        currentAnswer: editAnswer as iAnswer,
         question: editQuestion as iFormQuestion,
-        handleEditUpdate
+        errorMsg,
+        handleEditUpdate,
+        handleEditEnd
     };
 
     const isEntry = stage === Stage.Entry;

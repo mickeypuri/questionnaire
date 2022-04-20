@@ -2,5 +2,7 @@ import { iValidate } from "../../interfaces/iValidate";
 
 export const ValidateText = (value: any, validateConfig: iValidate) => {
     // Todo
-    return true;
+    const { minLength } = validateConfig;
+
+    return value?.length > (minLength as number);
 };

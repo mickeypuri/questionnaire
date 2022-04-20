@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { iQuestion } from "../interfaces/iQuestion";
 import { iValidate } from "../interfaces/iValidate";
 import { getAnswerComponent } from "../utils/getAnswerComponent";
@@ -13,8 +13,9 @@ export const Question = ({
     validate: validateConfig,
     answerOptions,
     updateQuestionnaire,
+    currentAnswer
 }: iQuestion) => {
-    const [answerValue, setAnswerValue] = useState(null);
+    const [answerValue, setAnswerValue] = useState(currentAnswer?.answer ?? '');
     const AnswerComponent = getAnswerComponent(responseType);
     const validator = getValidator(responseType);
 
@@ -24,13 +25,19 @@ export const Question = ({
         updateQuestionnaire({ questionId, answer: value, isValid});
     };
 
+    useEffect(() => {
+        setAnswerValue('');
+    },[questionId]);
+
     return (
         <>
             <div className={styles.container}>
-                <div>Question {questionNumber}</div>
-                <div>{question}</div>
+                <div >Question {questionNumber}</div>
+                <div className={styles.question}>{question}</div>
             </div>
-            <AnswerComponent value={answerValue} onChange={updateAnswerValue} answerOptions={answerOptions}/>
+            <div className={styles.answer}>
+                <AnswerComponent value={answerValue} onChange={updateAnswerValue} answerOptions={answerOptions}/>
+            </div>
         </>
     );
 };

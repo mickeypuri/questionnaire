@@ -6,7 +6,7 @@ function App() {
 
   const submitTopic = (answers: iAnswer[]) => {
     // To do post answers to an API
-    console.log(JSON.stringify(answers));
+    alert(JSON.stringify(answers));
   };
 
   return (

@@ -1,7 +1,18 @@
 .container {
     display: flex;
+    margin-top: 2em;
+}
+
+.container div {
+    margin-left: 5em;
 }
 
 .question {
     font-style: italic;
+}
+
+.answer {
+    margin-left: 5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }

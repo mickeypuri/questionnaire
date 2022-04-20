@@ -19,8 +19,7 @@ const Summary = ({
             <div>Review and Submit</div>
             <table>
                 <thead>
-                    <th>Question Number</th>
-                    <th>Question Id</th>
+                    <th>Number</th>
                     <th>Question</th>
                     <th>Answer</th>
                     <th>Edit</th>

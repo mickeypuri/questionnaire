@@ -17,12 +17,12 @@ export const TopicQuestionnaire = ({
 
     useEffect(() => {
         const _questions = getQuestions(topicId);
-        const formQuestions: iFormQuestion[] = _questions.map((_question, questionNumber) => ({ ..._question, questionNumber }));
+        const formQuestions: iFormQuestion[] = _questions.map((_question, index) => ({ ..._question, questionNumber: index + 1  }));
         setQuestions(formQuestions);
     }, [topicId]);
 
     return (
-        <Questionnaire questions={questions as iFormQuestion[]} topicId={topicId} submit={submit} />
+        <Questionnaire questions={questions as iFormQuestion[]} topicId={topicId} submit={submit} questionsPerPage={1} />
     );
 };
 

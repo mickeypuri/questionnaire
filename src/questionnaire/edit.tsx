@@ -1,13 +1,31 @@
 import { iEdit } from "./interfaces/iEdit";
+import { Question } from './components/question';
+import styles from './questionnaire.module.css';
 
 const Edit = ({
-    answer,
+    currentAnswer,
     question,
-    handleEditUpdate
+    errorMsg,
+    handleEditUpdate,
+    handleEditEnd,
 }: iEdit) => {
 
     return (
-        <div>ToDo: Edit Response to a single Question</div>
+        <div>
+
+            <Question {...question} updateQuestionnaire={handleEditUpdate} currentAnswer={currentAnswer} />
+
+           <div className={styles.buttons}>
+               <button onClick={handleEditEnd}>Update</button>
+           </div>
+
+           { errorMsg && (
+                <div className={styles.error}>
+                    {errorMsg}
+                </div>   
+            )}
+
+        </div>
     )
 
 };
