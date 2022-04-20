@@ -5,7 +5,7 @@ import { NumberAnswer } from "../components/answerTypes/number";
 import { RadioAnswer } from "../components/answerTypes/radio";
 import { TextAnswer } from "../components/answerTypes/text";
 import { TextAreaAnswer } from "../components/answerTypes/textarea";
-import { Response } from "../interfaces/Response";
+import { Response } from "../enums/Response";
 
 export const getAnswerComponent = (responseType : Response) => {
     switch (responseType) { 

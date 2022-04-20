@@ -1,4 +1,4 @@
-import { Response } from "../interfaces/Response";
+import { Response } from "../enums/Response";
 import { ValidateCheckBox } from "./validators/validateCheckBox";
 import { ValidateDate } from "./validators/validateDate";
 import { ValidateDropdown } from "./validators/validateDropDown";
