@@ -1,4 +1,3 @@
-import { Stage } from "../enums/Stage";
 import { iAnswer } from "./iAnswer";
 import { iFormQuestion } from "./iFormQuestion";
 
@@ -9,8 +8,8 @@ export interface iQuestionnaire extends iQuestionnaireBase {
 }
 
 export interface iQuestionnaireView extends iQuestionnaireBase {
-    stage: Stage,
     handleNext: () => void;
+    handleBack: () => void;
     updateQuestionnaire: (answer: iAnswer) => void;
     errorMsg?: string;
 }
@@ -18,6 +17,4 @@ export interface iQuestionnaireView extends iQuestionnaireBase {
 interface iQuestionnaireBase {
     questions: iFormQuestion[];
     allowBack?: boolean;
-    showSummary?: boolean;
-    editFromSummary?: boolean;
 }

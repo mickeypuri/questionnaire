@@ -1,11 +1,13 @@
 import { iEdit } from "./interfaces/iEdit";
 
 const Edit = ({
-    
+    answer,
+    question,
+    handleEditUpdate
 }: iEdit) => {
 
     return (
-        <div>Edit Response to 1 Question</div>
+        <div>ToDo: Edit Response to a single Question</div>
     )
 
 };

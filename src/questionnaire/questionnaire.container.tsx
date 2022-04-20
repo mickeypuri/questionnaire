@@ -16,7 +16,7 @@ const Questionnaire = ({
     topicId,
     submit
 } : iQuestionnaire) => {
-    // Todo replace the multiple useState with a single useReducer
+    // Todo Replace the complex state and multiple useState's with a single useReducer hook
     const [stage, setStage] = useState(Stage.Entry);
     const [pageAnswers, setPageAnswers] = useState<iAnswer[] | []>([]);
     const [topicAnswers, setTopicAnswers] = useState<iAnswer[] | []>([]);
@@ -42,6 +42,10 @@ const Questionnaire = ({
             [...pageAnswers, answerValue];
         setPageAnswers(updatedAnswers);
     };
+
+    const handleBack = () => {
+        setQuestionIndex(questionIndex - questionsPerPage)
+    }
 
     const handleNext = () => {
         if (pageAnswers.some(answer => !answer.isValid)) {
@@ -81,8 +85,8 @@ const Questionnaire = ({
         allowBack,
         showSummary,
         editFromSummary,
-        stage, 
-        handleNext, 
+        handleBack,
+        handleNext,
         updateQuestionnaire,
         errorMsg
     };

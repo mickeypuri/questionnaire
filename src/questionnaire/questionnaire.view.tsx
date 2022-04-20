@@ -1,18 +1,34 @@
 import { iQuestionnaireView } from "./interfaces/iQuestionnaire";
+import { Question } from './components/question';
 
 
 const QuestionnaireView = ({
     questions,
     allowBack,
-    showSummary,
-    editFromSummary,
-    stage,
+    handleBack,
+    handleNext,
     updateQuestionnaire,
     errorMsg
 }: iQuestionnaireView) => {
 
     return (
-        <div>Questionnaire View</div>
+        <div>
+           { errorMsg && (
+                <div>
+                    {errorMsg}
+                </div>   
+            )}
+
+           {questions.map(question => (
+               <Question {...question} updateQuestionnaire={updateQuestionnaire} />
+           ))}
+
+           <div>
+               {allowBack && <button onClick={handleBack}>Back</button> }
+               <button onClick={handleNext}>Next</button>
+           </div>
+
+        </div>
     );
 };
 
