@@ -11,8 +11,6 @@ const Questionnaire = ({
     questions,
     questionsPerPage = 1,
     allowBack = true,
-    showSummary = true,
-    editFromSummary = false,
     topicId,
     submit
 } : iQuestionnaire) => {
@@ -83,8 +81,6 @@ const Questionnaire = ({
     const entryViewProps = {
         questions: pageQuestions,
         allowBack,
-        showSummary,
-        editFromSummary,
         handleBack,
         handleNext,
         updateQuestionnaire,

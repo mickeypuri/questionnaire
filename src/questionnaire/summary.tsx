@@ -23,7 +23,7 @@ const Summary = ({
                     <th>Question Id</th>
                     <th>Question</th>
                     <th>Answer</th>
-                    <th>Action</th>
+                    <th>Edit</th>
                 </thead>
 
                     {questionAnswers.map(qa => {
