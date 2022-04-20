@@ -4,6 +4,7 @@ import { iAnswer } from './interfaces/iAnswer';
 import { iFormQuestion } from './interfaces/iFormQuestion';
 import { iQuestionnaire } from "./interfaces/iQuestionnaire";
 import QuestionnaireView from "./questionnaire.view";
+import Summary from "./summary";
 
 const Questionnaire = ({
     questions,
@@ -15,7 +16,7 @@ const Questionnaire = ({
     submit
 } : iQuestionnaire) => {
     // Todo replace the multiple useState with a single useReducer
-    const [stage, setStage] = useState<Stage>(Stage.Entry);
+    const [stage, setStage] = useState(Stage.Entry);
     const [pageAnswers, setPageAnswers] = useState<iAnswer[] | []>([]);
     const [topicAnswers, setTopicAnswers] = useState<iAnswer[] | []>([]);
     const [questionIndex, setQuestionIndex] = useState(0);
@@ -44,7 +45,13 @@ const Questionnaire = ({
             setErrorMsg('Some responses are not valid, please fix before proceeding');
         } else {
             setTopicAnswers([...topicAnswers, ...pageAnswers]);
-            setQuestionIndex(questionIndex + questionsPerPage);
+            const nextIndex = questionIndex + questionsPerPage;
+            if (nextIndex > questions.length - 1) {
+                setStage(Stage.Summary);
+            } else {
+                setQuestionIndex(nextIndex);
+            }
+
         }
     };
 
@@ -52,21 +59,35 @@ const Questionnaire = ({
         submit(topicAnswers);
     };
 
-    const viewProps = {
+    const entryViewProps = {
         questions: pageQuestions,
         allowBack,
         showSummary,
         editFromSummary,
         stage, 
         handleNext, 
-        handleSubmit, 
         updateQuestionnaire,
         errorMsg
     };
 
+    const summaryProps = {
+        questions,
+        topicAnswers,
+        handleSubmit
+    }
+
+    const isEntry = stage === Stage.Entry;
+    const isSummary = stage === Stage.Summary;
+
+
     return (
-                <QuestionnaireView {...viewProps} />
-    );
+        <>
+            {isEntry && <QuestionnaireView {...entryViewProps} />}
+            {isSummary && <Summary {...summaryProps} />}
+        
+        </>
+    )
+
 };
 
 export default Questionnaire;

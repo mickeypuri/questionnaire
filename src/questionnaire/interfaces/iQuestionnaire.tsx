@@ -11,7 +11,6 @@ export interface iQuestionnaire extends iQuestionnaireBase {
 export interface iQuestionnaireView extends iQuestionnaireBase {
     stage: Stage,
     handleNext: () => void;
-    handleSubmit: () => void;
     updateQuestionnaire: (answer: iAnswer) => void;
     errorMsg?: string;
 }
