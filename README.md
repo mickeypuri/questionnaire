@@ -26,6 +26,18 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 
+## The Use Case 
+
+An API call (simulated) is made to fetch a list of questions for a topic and then this creates a wizard which runs thru and gets the answers to the questions.
+
+The questions can have responses of various types eg text, numerical, date, dropdown, checkbox etc. 
+
+It can be configured as to how many questions to display per page of the wizard, and the user has the option of going back to previous questions. The back facility is itself configurable ie whether to offer it or not. Before going to the next question page, the responses are validated and if not valid, then an error message shows and the user is kept on the same page.
+
+At the end, the user is shown their responses and has the ability to edit before submitting. In future its intended to make the editing configurable but for now its part of the path.
+
+The submission is simulated via an alert, but normally would be posted to some API.
+
 ## Functionality
 
 You can configure how many questions are to appear on each page of the wizard by sending a questionsPerPage prop
