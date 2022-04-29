@@ -12,6 +12,7 @@ export interface iQuestionnaireView extends iQuestionnaireBase {
     handleBack: () => void;
     updateQuestionnaire: (answer: iAnswer) => void;
     errorMsg?: string;
+    topicAnswers?: iAnswer[];
 }
 
 interface iQuestionnaireBase {

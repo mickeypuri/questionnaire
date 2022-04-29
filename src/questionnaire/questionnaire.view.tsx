@@ -8,15 +8,21 @@ const QuestionnaireView = ({
     handleBack,
     handleNext,
     updateQuestionnaire,
-    errorMsg
+    errorMsg,
+    topicAnswers
 }: iQuestionnaireView) => {
 
     return (
         <div>
 
-           {questions.map(question => (
-               <Question key={question.questionId} {...question} updateQuestionnaire={updateQuestionnaire} />
-           ))}
+           {questions.map(question => {
+               const { questionId } = question;
+               const currentAnswer = topicAnswers?.find(topicAnswer => topicAnswer.questionId === questionId);
+
+               return (
+                    <Question key={question.questionId} {...question} updateQuestionnaire={updateQuestionnaire} currentAnswer={currentAnswer} />
+                );
+            })}
 
            <div className={styles.buttons}>
                {allowBack && <button onClick={handleBack}>Back</button> }

@@ -98,7 +98,8 @@ const Questionnaire = ({
         handleBack,
         handleNext,
         updateQuestionnaire,
-        errorMsg
+        errorMsg,
+        topicAnswers
     };
 
     const summaryProps = {
