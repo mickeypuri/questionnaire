@@ -32,9 +32,12 @@ const Questionnaire = ({
     useEffect(() => {
         if (questions) {
             const lastQuestionIndex = questionIndex + questionsPerPage;
-            setPageQuestions(questions.slice(questionIndex, lastQuestionIndex));
+            const _pageQuestions = questions.slice(questionIndex, lastQuestionIndex);
+            const _pageAnswers = topicAnswers.filter(answer => _pageQuestions.some(question => question.questionId === answer.questionId));
+            setPageQuestions(_pageQuestions);
+            setPageAnswers(_pageAnswers);
         }
-    }, [questionIndex, questions, questionsPerPage]);
+    }, [questionIndex, questions, questionsPerPage, topicAnswers]);
 
     const updateQuestionnaire = (answerValue: iAnswer) => {
         const updatedAnswers = pageAnswers.some(answer => answer.questionId === answerValue.questionId) ? 
@@ -44,7 +47,11 @@ const Questionnaire = ({
     };
 
     const handleBack = () => {
-        setQuestionIndex(questionIndex - questionsPerPage)
+        const _questionIndex = questionIndex - questionsPerPage;
+        if (_questionIndex >= 0) {
+            setQuestionIndex(_questionIndex);
+            setErrorMsg('');
+        }
     }
 
     const handleNext = () => {
@@ -52,7 +59,7 @@ const Questionnaire = ({
             setErrorMsg('Some responses are not valid, please fix before proceeding');
         } else {
             setErrorMsg('');
-            setTopicAnswers([...topicAnswers, ...pageAnswers]);
+            setTopicAnswers([...new Set([...topicAnswers, ...pageAnswers])]);
             setPageAnswers([]);
             const nextIndex = questionIndex + questionsPerPage;
             if (nextIndex > questions.length - 1) {
